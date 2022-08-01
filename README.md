@@ -10,7 +10,7 @@
 <img src ="https://raw.githubusercontent.com/ATOMIC09/DerDoS/main/pyinstaller/asset/example_ui.png" />
 
 ## ❗ Before using
-If you want to use only, go to `Release` tab
+If you want to use .exe only, go to `Releases` tab
 
 But if you want to try .py version
 
