@@ -33,8 +33,8 @@ But you need to make sure the target doesn't have a firewall on.
 
 Just use `ping <target_ip>` in command prompt
 (e.g. `ping 25.7.233.218` to check if 25.7.233.218 is online or not)
-
 If the packet loss is 100%, the target has a firewall on and you can't attack him. or even join his game server
+
 <img src ="https://raw.githubusercontent.com/ATOMIC09/DerDoS/main/pyinstaller/asset/mc_firewall_on.jpg" />
 
 
