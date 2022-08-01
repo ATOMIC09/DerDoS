@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
         MainWindow.setMaximumSize(QtCore.QSize(494, 278))
         MainWindow.setWindowTitle("DerDoS")
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("exe_generate/asset/DDoS_LOGO.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("asset/logo.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         MainWindow.setLayoutDirection(QtCore.Qt.LeftToRight)
         MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
