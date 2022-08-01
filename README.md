@@ -7,17 +7,21 @@
 </p>
 
 > Basics of UDP Attacks with Sockets
-<img src ="https://media.discordapp.net/attachments/778868879567880192/1003507956282830888/Screenshot_2022-08-01_104141.png" />
+<img src ="https://raw.githubusercontent.com/ATOMIC09/DerDoS/main/pyinstaller/asset/example_ui.png" />
 
 ## ❗ Before using
+If you want to use only, go to `Release` tab
+
+But if you want to try .py version
 
 ```sh
 pip install PyQt5
 ```
 
-## ❓ How to use ?
+to install library that needed to show the GUI
 
-Just click `run.py`
+## ❓ How to use .py version ?
+Just click `main.py`
 
 ## 🤔 How to check if it can attack ?
 
@@ -31,10 +35,10 @@ Just use `ping <target_ip>` in command prompt
 (e.g. `ping 25.7.233.218` to check if 25.7.233.218 is online or not)
 
 If the packet loss is 100%, the target has a firewall on and you can't attack him. or even join his game server
-<img src ="https://cdn.discordapp.com/attachments/778868879567880192/1003512650929557544/failmc.jpg" />
+<img src ="https://raw.githubusercontent.com/ATOMIC09/DerDoS/main/pyinstaller/asset/mc_firewall_on.jpg" />
 
 
 ## 🚀 Example case
 You can use the target IP in Hamachi to attack game servers such as Minecraft.
 
-<img src ="https://cdn.discordapp.com/attachments/778868879567880192/1003510356364247070/ddos_test.png" />
+<img src ="https://raw.githubusercontent.com/ATOMIC09/DerDoS/main/pyinstaller/asset/example_case.png" />
