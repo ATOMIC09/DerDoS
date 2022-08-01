@@ -14,11 +14,11 @@ If you want to use only, go to `Release` tab
 
 But if you want to try .py version
 
+Type
 ```sh
 pip install PyQt5
 ```
-
-to install library that needed to show the GUI
+in `Command Prompt` or `PowerShell` to install library that needed to show the GUI
 
 ## ❓ How to use .py version ?
 Just click `main.py`
