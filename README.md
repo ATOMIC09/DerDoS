@@ -4,6 +4,9 @@
   <a href="#" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
+  <a href="https://github.com/ATOMIC09/DerDoS/tags">
+      <img alt="Download" src="https://img.shields.io/github/downloads/ATOMIC09/DerDoS/total" />
+  </a>
 </p>
 
 > Basics of UDP Attacks with Sockets
