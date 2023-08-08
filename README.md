@@ -13,7 +13,7 @@
 <img src ="https://raw.githubusercontent.com/ATOMIC09/DerDoS/main/pyinstaller/asset/example_ui.png" />
 
 ## ❗ Before using
-If you want to use .exe only, go to `Releases` tab
+If you want to use .exe only, go to `Releases` tab. or click [here](https://github.com/ATOMIC09/DerDoS/releases/download/DerDoS/DerDoS.exe) to download now.
 
 But if you want to try .py version
 
