@@ -36,7 +36,7 @@ class Ui_MainWindow(object):
         self.attack.setObjectName("attack")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(10, 230, 141, 21))
-        self.label.setStyleSheet("font: 300 10pt \"Arial\";")  # Changed font to Arial
+        self.label.setStyleSheet("font: 300 6pt \"Arial\";")  # Changed font to Arial
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
@@ -53,7 +53,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.title_ip = QtWidgets.QLabel(self.layoutWidget)
-        self.title_ip.setStyleSheet("font: 500 18pt \"Arial\";")
+        self.title_ip.setStyleSheet("font: 500 14pt \"Arial\";")
         self.title_ip.setObjectName("title_ip")
         self.verticalLayout_3.addWidget(self.title_ip)
         self.ip = QtWidgets.QLineEdit(self.layoutWidget)
@@ -63,7 +63,7 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.title_port = QtWidgets.QLabel(self.layoutWidget)
-        self.title_port.setStyleSheet("font: 500 18pt \"Arial\";")
+        self.title_port.setStyleSheet("font: 500 14pt \"Arial\";")
         self.title_port.setObjectName("title_port")
         self.verticalLayout.addWidget(self.title_port)
         self.port = QtWidgets.QLineEdit(self.layoutWidget)
