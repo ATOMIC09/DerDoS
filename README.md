@@ -13,7 +13,9 @@
 <img src ="https://raw.githubusercontent.com/ATOMIC09/DerDoS/main/pyinstaller/asset/example_ui.png" />
 
 ## ❗ Before using
-If you want to use .exe only, go to `Releases` tab. or click [here](https://github.com/ATOMIC09/DerDoS/releases/download/DerDoS/DerDoS.exe) to download now.
+If you want to use executable file, go to `Releases` tab. or click here
+- [Download for Windows](https://github.com/ATOMIC09/DerDoS/releases/download/V1.0/DerDos-1.0-windows-x86_64.exe)
+- [Download for Mac (Intel)](https://github.com/ATOMIC09/DerDoS/releases/download/V1.0/DerDos-1.0-mac-x86_64.dmg)
 
 But if you want to try .py version
 
@@ -24,7 +26,7 @@ pip install PyQt5
 in `Command Prompt` or `PowerShell` to install library that needed to show the GUI
 
 ## ❓ How to use .py version ?
-Just click `main.py`
+Just run `main.py`
 
 ## 🤔 How to check if it can attack ?
 
@@ -36,7 +38,7 @@ But you need to make sure the target doesn't have a firewall on.
 
 Just use `ping <target_ip>` in command prompt
 (e.g. `ping 25.7.233.218` to check if 25.7.233.218 is online or not)
-If the packet loss is 100%, the target has a firewall on and you can't attack him. or even join his game server
+If the packet loss is 100%, the target has a firewall on and you can't attack. or even join the game server
 
 <img src ="https://raw.githubusercontent.com/ATOMIC09/DerDoS/main/pyinstaller/asset/mc_firewall_on.jpg" />
 
