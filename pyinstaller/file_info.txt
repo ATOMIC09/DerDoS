@@ -29,13 +29,13 @@ StringFileInfo(
   [
   StringTable(
     u'040904B0',
-    [StringStruct(u'CompanyName', u'der Software'),
-    StringStruct(u'FileDescription', u'DerDoS by atomic09'),
-    StringStruct(u'FileVersion', u'1.0.0'),
+    [StringStruct(u'CompanyName', u'atomic09'),
+    StringStruct(u'FileDescription', u'V1.0 | Made by atomic09'),
+    StringStruct(u'FileVersion', u'1.0'),
     StringStruct(u'InternalName', u'SVN'),
-    StringStruct(u'LegalCopyright', u'der Software (Non-Copyrighted)'),
+    StringStruct(u'LegalCopyright', u'MIT'),
     StringStruct(u'OriginalFilename', u'DerDos.exe'),
-    StringStruct(u'ProductName', u'DerDoS GUI'),
+    StringStruct(u'ProductName', u'DerDoS'),
     StringStruct(u'ProductVersion', u'1.0')])
   ]), 
 VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
