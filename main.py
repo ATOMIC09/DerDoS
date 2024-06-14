@@ -31,7 +31,7 @@ class Ui_MainWindow(object):
         self.stop.setText("Stop")
         self.stop.setEnabled(False)
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 240, 141, 21))
+        self.label.setGeometry(QtCore.QRect(10, 230, 141, 21))
         self.label.setStyleSheet("font: 300 6pt \"Arial\";")
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
