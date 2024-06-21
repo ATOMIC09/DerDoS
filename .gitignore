@@ -113,6 +113,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-.DS_Store
-.dmg
-.exe
+*.DS_Store
+*.dmg
+*.exe
