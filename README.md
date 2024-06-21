@@ -35,7 +35,7 @@ You can use the script in `derdos_builder/build_mac/run_mac_builder.sh` (Make su
 ### An example of building the app on macOS 14
 https://github.com/ATOMIC09/DerDoS/assets/66838025/3dacbfbd-1db5-42f5-a19d-4d21368227f8
 
-<be>
+<br>
 
 ## 🪟 Want to build for Windows yourself ? 
 You can use the script in `derdos_builder/build_mac/run_windows_builder.sh` (Make sure you are running the script within `derdos_builder/build_windows/`)
@@ -49,7 +49,7 @@ You can use the script in `derdos_builder/build_mac/run_windows_builder.sh` (Mak
 ### An example of building the app on Windows 11
 https://github.com/ATOMIC09/DerDoS/assets/66838025/0dccc110-1c75-4078-8783-ac846aab90ea
 
-<be>
+<br>
 
 ## ❓ How to use .py version ?
 *This section was tested on Windows 11*
