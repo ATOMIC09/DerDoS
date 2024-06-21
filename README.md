@@ -10,7 +10,7 @@
 </p>
 
 > Basics of UDP Attacks with Sockets, Use for educational purposes only.
-<img src ="https://github.com/ATOMIC09/DerDoS/assets/66838025/45a09a70-d769-4e89-b328-9fdb44f7fee4" />
+<img src ="https://github.com/ATOMIC09/DerDoS/assets/66838025/3cc6273a-c6dc-4eea-b027-c360b20f09a0" />
 <br>
 <br>
 
@@ -35,7 +35,21 @@ You can use the script in `derdos_builder/build_mac/run_mac_builder.sh` (Make su
 ### An example of building the app on macOS 14
 https://github.com/ATOMIC09/DerDoS/assets/66838025/3dacbfbd-1db5-42f5-a19d-4d21368227f8
 
-<br>
+<be>
+
+## 🪟 Want to build for Windows yourself ? 
+You can use the script in `derdos_builder/build_mac/run_windows_builder.sh` (Make sure you are running the script within `derdos_builder/build_windows/`)
+
+### Required libraries
+- PyQt5 *(Python 3 required)*
+  - Install with `pip install pyqt5`
+- Nuitka *(Python 3 required)*
+  - Install with `pip install Nuitka`
+
+### An example of building the app on Windows 11
+https://github.com/ATOMIC09/DerDoS/assets/66838025/0dccc110-1c75-4078-8783-ac846aab90ea
+
+<be>
 
 ## ❓ How to use .py version ?
 *This section was tested on Windows 11*
