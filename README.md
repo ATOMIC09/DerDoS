@@ -86,4 +86,4 @@ If the packet loss is 100%, the target has a firewall on and you can't attack. o
 ## 🚀 Example case
 You can use the target IP in Hamachi to attack game servers such as Minecraft.
 
-<img src ="https://raw.githubusercontent.com/ATOMIC09/DerDoS/main/derdos_builder/asset/example_case.png" />
+<img src ="https://github.com/user-attachments/assets/00da0874-3276-409f-bf6c-1e1a406473ac" />
