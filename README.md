@@ -18,6 +18,7 @@
 If you want to use an executable file, go to the `Releases` tab. or click **here**
 - [`Download for Windows (v1.1)`](https://github.com/ATOMIC09/DerDoS/releases/download/v1.1/DerDos-1.1-windows-x86_64.exe)
 - [`Download for Mac (Intel) (v1.1)`](https://github.com/ATOMIC09/DerDoS/releases/download/v1.1/DerDos-1.1-mac-x86_64.dmg)
+- [`Download for Mac (Apple Silicon) (v1.1)`](https://github.com/ATOMIC09/DerDoS/releases/download/v1.1/DerDos-1.1-mac-arm64.dmg)
 
 <br>
 
