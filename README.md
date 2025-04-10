@@ -27,11 +27,10 @@ You can use the script in `derdos_builder/build_mac/run_mac_builder.sh` (Make su
 
 ### Required libraries
 - Pyinstaller *(Python 3 required)*
-  - Install with `pip3 install pyinstaller`
 - PyQt5 *(Python 3 required)*
-  - Install with `pip3 install pyqt5`
 - appdmg *(NodeJs required)*
-  - Install with  `sudo npm install appdmg -g`
+
+(`run_mac_builder.sh` will install these automatically)
 
 ### An example of building the app on macOS 14
 https://github.com/ATOMIC09/DerDoS/assets/66838025/3dacbfbd-1db5-42f5-a19d-4d21368227f8
