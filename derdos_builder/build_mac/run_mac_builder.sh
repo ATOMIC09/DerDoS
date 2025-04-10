@@ -1,26 +1,86 @@
 #!/bin/bash
 
+# Check if npm is installed
+if ! command -v npm &> /dev/null; then
+  echo "⚠️  npm is not installed. Please install Node.js"
+  exit 1
+fi
+# Check if Python 3 is installed
+if ! command -v python3 &> /dev/null; then
+  echo "⚠️  Python 3 is not installed. Please install Python 3"
+  exit 1
+fi
+
+# Function to install appdmg if not installed
+install_appdmg() {
+  if ! command -v appdmg &> /dev/null; then
+    echo "⬇️  appdmg is not installed. Installing..."
+    npm install -g appdmg
+    if [ $? -ne 0 ]; then
+      echo "⚠️  Failed to install appdmg."
+      exit 1
+    fi
+    echo "✅ appdmg installed successfully."
+  else
+    echo "✅ appdmg is already installed."
+  fi
+}
+
+# Function to install pyinstaller if not installed
+install_pyinstaller() {
+  if ! command -v pyinstaller &> /dev/null; then
+    echo "⬇️  PyInstaller is not installed. Installing..."
+    python3 -m pip install pyinstaller
+    if [ $? -ne 0 ]; then
+      echo "⚠️  Failed to install PyInstaller."
+      exit 1
+    fi
+    echo "✅ PyInstaller installed successfully."
+  else
+    echo "✅ PyInstaller is already installed."
+  fi
+}
+
+# Function to install PyQt5 if not installed
+install_pyqt5() {
+  if ! python3 -m pip show PyQt5 &> /dev/null; then
+    echo "⬇️  PyQt5 is not installed. Installing..."
+    python3 -m pip install PyQt5
+    if [ $? -ne 0 ]; then
+      echo "⚠️  Failed to install PyQt5."
+      exit 1
+    fi
+    echo "✅ PyQt5 installed successfully."
+  else
+    echo "✅ PyQt5 is already installed."
+  fi
+}
+
 # Function to check if a command exists and display its path
 check_command() {
   if ! command -v "$1" &> /dev/null; then
     echo "⚠️  Error: $1 is not installed."
-    echo
-    exit 1
+    if [ "$1" == "appdmg" ]; then
+      install_appdmg
+    elif [ "$1" == "pyinstaller" ]; then
+      install_pyinstaller
+    fi
   else
-    echo "✅ $1 is installed at $(command -v "$1")"
-    
+    location=$(command -v "$1")
+    echo "✅ $1 is installed at: $location"
   fi
 }
 
 # Function to check if a Python package is installed and display its location
 check_python_package() {
   if ! python3 -m pip show "$1" &> /dev/null; then
-    echo "⚠️  Error: Python package $1 is not installed."
-    echo
-    exit 1
+    echo "⚠️  Error: $1 is not installed."
+    if [ "$1" == "PyQt5" ]; then
+      install_pyqt5
+    fi
   else
-    location=$(python3 -m pip show "$1" | grep Location | awk '{print $2}')
-    echo "✅ $1 Python package is installed at: $location"
+    location=$(python3 -m pip show "$1" | grep Location | cut -d ' ' -f 2)
+    echo "✅ $1 is installed at: $location"
   fi
 }
 
