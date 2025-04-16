@@ -12,11 +12,9 @@ class Ui_MainWindow(object):
         MainWindow.setMaximumSize(QtCore.QSize(1200, 1000))
         MainWindow.setWindowTitle("DerDoS")
         
-        # Detect system theme
-        self.is_dark_mode = self.detect_dark_mode()
-        
-        # Setup modern styling
-        self.setup_stylesheet(MainWindow)
+        # Use native macOS style
+        if sys.platform == "darwin":  # Check if running on macOS
+            QtWidgets.QApplication.setStyle(QtWidgets.QStyleFactory.create("macOS"))
         
         # Setup window icon
         icon = QtGui.QIcon()
@@ -43,8 +41,6 @@ class Ui_MainWindow(object):
         
         # IP Address input
         self.ip_group = QtWidgets.QGroupBox("Target IP Address")
-        if not self.is_dark_mode:
-            self.ip_group.setStyleSheet("QGroupBox { font-weight: bold; }")
         self.ip_layout = QtWidgets.QVBoxLayout(self.ip_group)
         self.ip = QtWidgets.QLineEdit()
         self.ip.setPlaceholderText("Enter IPv4 Address")
@@ -54,8 +50,6 @@ class Ui_MainWindow(object):
         
         # Port input
         self.port_group = QtWidgets.QGroupBox("Target Port")
-        if not self.is_dark_mode:
-            self.port_group.setStyleSheet("QGroupBox { font-weight: bold; }")
         self.port_layout = QtWidgets.QVBoxLayout(self.port_group)
         self.port = QtWidgets.QLineEdit()
         self.port.setPlaceholderText("Enter Port Number")
@@ -65,8 +59,6 @@ class Ui_MainWindow(object):
         
         # Packet size control
         self.packet_group = QtWidgets.QGroupBox("Packet Size (bytes)")
-        if not self.is_dark_mode:
-            self.packet_group.setStyleSheet("QGroupBox { font-weight: bold; }")
         self.packet_layout = QtWidgets.QVBoxLayout(self.packet_group)
         self.packet_size = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
         self.packet_size.setMinimum(1024)
@@ -82,8 +74,6 @@ class Ui_MainWindow(object):
         
         # Stats display
         self.stats_group = QtWidgets.QGroupBox("Attack Statistics")
-        if not self.is_dark_mode:
-            self.stats_group.setStyleSheet("QGroupBox { font-weight: bold; }")
         self.stats_layout = QtWidgets.QFormLayout(self.stats_group)
         self.packets_sent_label = QtWidgets.QLabel("Packets Sent: 0")
         self.data_sent_label = QtWidgets.QLabel("Data Sent: 0 MB")
@@ -123,8 +113,6 @@ class Ui_MainWindow(object):
         
         # Log view
         self.log_label = QtWidgets.QLabel("Attack Log")
-        if not self.is_dark_mode:
-            self.log_label.setStyleSheet("font-weight: bold;")
         self.output_layout.addWidget(self.log_label)
         
         self.plainTextEdit = QtWidgets.QPlainTextEdit()
@@ -173,158 +161,13 @@ class Ui_MainWindow(object):
         self.plainTextEdit.appendPlainText("Enter target IP address and port to begin.\n")
         self.plainTextEdit.appendPlainText("WARNING: This tool should only be used for educational purposes and network testing. Unauthorized use against networks without permission is illegal.\n")
 
-    def detect_dark_mode(self):
-        """Detect if system is using dark mode"""
-        if sys.platform == "win32":
-            try:
-                import winreg
-                registry = winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER)
-                key = winreg.OpenKey(registry, r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize")
-                value, regtype = winreg.QueryValueEx(key, "AppsUseLightTheme")
-                winreg.CloseKey(key)
-                return value == 0  # 0 means dark theme
-            except:
-                return False
-        # For other platforms, check if QApplication prefers dark mode
-        return QtWidgets.QApplication.styleHints().colorScheme() == QtCore.Qt.ColorScheme.Dark
-
-    def setup_stylesheet(self, MainWindow):
-        """Apply modern stylesheet to the application based on theme"""
-        if self.is_dark_mode:
-            self.apply_dark_stylesheet(MainWindow)
-        else:
-            self.apply_light_stylesheet(MainWindow)
-            
-    def apply_light_stylesheet(self, MainWindow):
-        """Apply light theme stylesheet"""
-        MainWindow.setStyleSheet("""
-            QMainWindow, QWidget {
-                background-color: #ffffff;
-                color: #212529;
-            }
-            QGroupBox {
-                font-weight: bold;
-            }
-            QLineEdit {
-                padding: 8px;
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                background-color: #f8f9fa;
-                color: #212529;
-            }
-            QLineEdit:focus {
-                border: 1px solid #5b9bd5;
-            }
-            QPlainTextEdit {
-                background-color: #f8f9fa; 
-                border: 1px solid #ddd; 
-                border-radius: 4px;
-                color: #212529;
-            }
-            QProgressBar {
-                border: 1px solid #ddd;
-                border-radius: 4px;
-                text-align: center;
-            }
-            QProgressBar::chunk {
-                background-color: #5cb85c;
-            }
-            QLabel[openExternalLinks="true"] a {
-                color: #5b9bd5;
-            }
-        """)
-        
-    def apply_dark_stylesheet(self, MainWindow):
-        """Apply dark theme stylesheet"""
-        MainWindow.setStyleSheet("""
-            QMainWindow, QWidget {
-                background-color: #2d2d2d;
-                color: #e0e0e0;
-            }
-            QGroupBox {
-                font-weight: bold;
-                border: 1px solid #555555;
-                border-radius: 4px;
-                padding-top: 10px;
-                margin-top: 0.5em;
-            }
-            QGroupBox::title {
-                subcontrol-origin: margin;
-                left: 7px;
-                padding: 0 5px 0 5px;
-            }
-            QLineEdit {
-                padding: 8px;
-                border: 1px solid #555555;
-                border-radius: 4px;
-                background-color: #3d3d3d;
-                color: #e0e0e0;
-            }
-            QLineEdit:focus {
-                border: 1px solid #007acc;
-            }
-            QPlainTextEdit {
-                background-color: #3d3d3d; 
-                border: 1px solid #555555; 
-                border-radius: 4px;
-                color: #e0e0e0;
-            }
-            QProgressBar {
-                border: 1px solid #555555;
-                border-radius: 4px;
-                text-align: center;
-                background-color: #3d3d3d;
-                height: 20px;
-                padding: 0px;
-                margin: 0px;
-            }
-            QProgressBar::chunk {
-                background-color: #5cb85c;
-            }
-            QLabel[openExternalLinks="true"] a {
-                color: #007acc;
-            }
-            QLabel {
-                padding: 0px;
-                margin: 0px;
-            }
-            QPushButton {
-                background-color: #3d3d3d;
-                color: #e0e0e0;
-                border: 1px solid #555555;
-                border-radius: 4px;
-                padding: 5px;
-            }
-            QPushButton:disabled {
-                background-color: #2d2d2d;
-                border-radius: 4px;
-                color: #777777;
-            }
-            QSlider {
-                height: 20px;
-                margin: 0px;
-            }
-            QSlider::groove:horizontal {
-                height: 4px;
-                background: #555555;
-                margin: 0 0;
-            }
-            QSlider::handle:horizontal {
-                background: #007acc;
-                width: 10px;
-                margin: -4px 0;
-                border-radius: 5px;
-            }
-        """)
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.attack.setText(_translate("MainWindow", "Attack"))
         self.stop.setText(_translate("MainWindow", "Stop"))
         
-        # Use appropriate link color for the theme
-        link_color = "#007acc" if self.is_dark_mode else "#5b9bd5"
-        self.label.setText(_translate("MainWindow", f'<a href="https://github.com/ATOMIC09/DerDoS" style="text-decoration: none; color: {link_color};">DerDoS v1.2 | Licensed under GPLv3</a>'))
+        # Use system default link color for macOS
+        self.label.setText(_translate("MainWindow", '<a href="https://github.com/ATOMIC09/DerDoS" style="text-decoration: none;">DerDoS v1.2 | Licensed under GPLv3</a>'))
 
     def shoot(self):
         """Prepare and start the attack"""
