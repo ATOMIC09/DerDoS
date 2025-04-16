@@ -76,10 +76,14 @@ class Ui_MainWindow(object):
         self.packet_size.setTickInterval(8192)
         if not self.is_dark_mode:
             self.packet_size.setStyleSheet("QSlider { background-color: #f8f9fa; }")
+        else:
+            self.packet_size.setStyleSheet("QSlider { background-color: #323232; }")
         self.packet_size_label = QtWidgets.QLabel(f"Size: {self.packet_size.value()}")
-        
+
         if not self.is_dark_mode:
             self.packet_size_label.setStyleSheet("background-color: #f8f9fa;")
+        else:
+            self.packet_size_label.setStyleSheet("background-color: #323232;")
         self.packet_size.valueChanged.connect(lambda v: self.packet_size_label.setText(f"Size: {v}"))
         self.packet_layout.addWidget(self.packet_size)
         self.packet_layout.addWidget(self.packet_size_label)
@@ -93,9 +97,13 @@ class Ui_MainWindow(object):
         self.packets_sent_label = QtWidgets.QLabel("Packets Sent: 0")
         if not self.is_dark_mode:
             self.packets_sent_label.setStyleSheet("background-color: #f8f9fa;")
+        else:
+            self.packets_sent_label.setStyleSheet("background-color: #323232;")
         self.data_sent_label = QtWidgets.QLabel("Data Sent: 0 MB")
         if not self.is_dark_mode:
             self.data_sent_label.setStyleSheet("background-color: #f8f9fa;")
+        else:
+            self.data_sent_label.setStyleSheet("background-color: #323232;")
         self.stats_layout.addRow(self.packets_sent_label)
         self.stats_layout.addRow(self.data_sent_label)
         self.control_layout.addWidget(self.stats_group)
@@ -241,6 +249,33 @@ class Ui_MainWindow(object):
             QLabel[openExternalLinks="true"] a {
                 color: #5b9bd5;
             }
+            QPushButton {
+                background-color: #f8f9fa;
+                color: #212529;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                padding: 5px;
+            }
+            QPushButton:disabled {
+                background-color: #e9ecef;
+                border-radius: 4px;
+                color: #6c757d;
+            }
+            QSlider {
+                height: 20px;
+                margin: 0px;
+            }
+            QSlider::groove:horizontal {
+                height: 4px;
+                background: #ddd;
+                margin: 0 0;
+            }
+            QSlider::handle:horizontal {
+                background: #5b9bd5;
+                width: 10px;
+                margin: -4px 0;
+                border-radius: 5px;
+            }
         """)
         
     def apply_dark_stylesheet(self, MainWindow):
@@ -252,15 +287,6 @@ class Ui_MainWindow(object):
             }
             QGroupBox {
                 font-weight: bold;
-                border: 1px solid #555555;
-                border-radius: 4px;
-                padding-top: 10px;
-                margin-top: 0.5em;
-            }
-            QGroupBox::title {
-                subcontrol-origin: margin;
-                left: 7px;
-                padding: 0 5px 0 5px;
             }
             QLineEdit {
                 padding: 8px;
