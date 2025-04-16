@@ -94,7 +94,7 @@ check_python_package PyQt6
 # Step 1: Run pyinstaller to build main.app
 echo
 echo "1️⃣  Running pyinstaller to build main.app..."
-pyinstaller --onefile --noconsole --icon=../asset/mac-logo.icns ../../main_mac.py
+pyinstaller --onefile --noconsole --icon=../asset/mac-logo.icns ../../main.py
 if [ $? -ne 0 ]; then
   echo "⚠️  PyInstaller failed to build the application."
   exit 1

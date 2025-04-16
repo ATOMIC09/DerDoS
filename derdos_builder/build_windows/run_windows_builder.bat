@@ -23,7 +23,7 @@ echo.
 
 REM Step 1: Run nuitka to build main.exe
 echo 1. Running nuitka to build main.exe...
-python -m nuitka --standalone ..\..\main_windows.py --onefile --enable-plugin=pyqt6 --windows-icon-from-ico="..\asset\windows-logo.ico" --windows-console-mode=disable --company-name="ATOMIC09" --product-name="DerDos" --file-version=1.2 --product-version=1.2 --file-description="A Simple Denial of Service Tool with GUI" --copyright="Licensed under the GPLv3 License"
+python -m nuitka --standalone ..\..\main.py --onefile --enable-plugin=pyqt6 --windows-icon-from-ico="..\asset\windows-logo.ico" --windows-console-mode=disable --company-name="ATOMIC09" --product-name="DerDos" --file-version=1.2 --product-version=1.2 --file-description="A Simple Denial of Service Tool with GUI" --copyright="Licensed under the GPLv3 License"
 if %errorlevel% neq 0 (
     echo ! Nuitka failed to build the application.
     exit /b 1
