@@ -10,20 +10,20 @@ if %errorlevel% neq 0 (
     echo Nuitka is already installed.
 )
 
-REM Check if PyQt5 is installed
-echo Checking for PyQt5 installation...
-python -c "import PyQt5" 2>nul
+REM Check if PyQt6 is installed
+echo Checking for PyQt6 installation...
+python -c "import PyQt6" 2>nul
 if %errorlevel% neq 0 (
-    echo PyQt5 is not installed. Installing now...
-    pip install PyQt5
+    echo PyQt6 is not installed. Installing now...
+    pip install PyQt6
 ) else (
-    echo PyQt5 is already installed.
+    echo PyQt6 is already installed.
 )
 echo.
 
 REM Step 1: Run nuitka to build main.exe
 echo 1. Running nuitka to build main.exe...
-python -m nuitka --standalone ..\..\main.py --onefile --enable-plugin=pyqt5 --windows-icon-from-ico="..\asset\windows-logo.ico" --windows-console-mode=disable --company-name="ATOMIC09" --product-name="DerDos" --file-version=1.1 --product-version=1.1 --file-description="A Simple Denial of Service Tool with GUI" --copyright="Licensed under the GPLv3 License"
+python -m nuitka --standalone ..\..\main.py --onefile --enable-plugin=pyqt6 --windows-icon-from-ico="..\asset\windows-logo.ico" --windows-console-mode=disable --company-name="ATOMIC09" --product-name="DerDos" --file-version=1.2 --product-version=1.2 --file-description="A Simple Denial of Service Tool with GUI" --copyright="Licensed under the GPLv3 License"
 if %errorlevel% neq 0 (
     echo ! Nuitka failed to build the application.
     exit /b 1

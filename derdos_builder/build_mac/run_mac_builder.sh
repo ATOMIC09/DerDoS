@@ -41,18 +41,18 @@ install_pyinstaller() {
   fi
 }
 
-# Function to install PyQt5 if not installed
-install_pyqt5() {
-  if ! python3 -m pip show PyQt5 &> /dev/null; then
-    echo "⬇️  PyQt5 is not installed. Installing..."
-    python3 -m pip install PyQt5
+# Function to install PyQt6 if not installed
+install_pyqt6() {
+  if ! python3 -m pip show PyQt6 &> /dev/null; then
+    echo "⬇️  PyQt6 is not installed. Installing..."
+    python3 -m pip install PyQt6
     if [ $? -ne 0 ]; then
-      echo "⚠️  Failed to install PyQt5."
+      echo "⚠️  Failed to install PyQt6."
       exit 1
     fi
-    echo "✅ PyQt5 installed successfully."
+    echo "✅ PyQt6 installed successfully."
   else
-    echo "✅ PyQt5 is already installed."
+    echo "✅ PyQt6 is already installed."
   fi
 }
 
@@ -75,11 +75,11 @@ check_command() {
 check_python_package() {
   if ! python3 -m pip show "$1" &> /dev/null; then
     echo "⚠️  Error: $1 is not installed."
-    if [ "$1" == "PyQt5" ]; then
-      install_pyqt5
+    if [ "$1" == "PyQt6" ]; then
+      install_pyqt6
     fi
   else
-    location=$(python3 -m pip show "$1" | grep Location | cut -d ' ' -f 2)
+    location=$(python3 -c "import $1; print($1.__file__)")
     echo "✅ $1 is installed at: $location"
   fi
 }
@@ -89,7 +89,7 @@ echo
 echo "0️⃣  Checking for required dependencies..."
 check_command appdmg
 check_command pyinstaller
-check_python_package PyQt5
+check_python_package PyQt6
 
 # Step 1: Run pyinstaller to build main.app
 echo

