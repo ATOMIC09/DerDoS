@@ -2,7 +2,7 @@
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-1.2-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
-    <img alt="License: MIT" src="https://img.shields.io/badge/License-GPLv3-yellow.svg" />
+    <img alt="License: GPLv3" src="https://img.shields.io/badge/License-GPLv3-yellow.svg" />
   </a>
   <a href="https://github.com/ATOMIC09/DerDoS/tags">
       <img alt="Download" src="https://img.shields.io/github/downloads/ATOMIC09/DerDoS/total" />
@@ -10,13 +10,13 @@
 </p>
 
 > Basics of UDP Attacks with Sockets, Use for educational purposes only.
-<img src ="https://github.com/ATOMIC09/DerDoS/assets/66838025/3cc6273a-c6dc-4eea-b027-c360b20f09a0" />
+<img src ="https://github.com/user-attachments/assets/8aa32acc-4422-448f-9ee8-c30d17ff4993" />
 <br>
 <br>
 
 ## ❗ Before using
 If you want to use an executable file, go to the `Releases` tab. or click **here**
-- [`Download for Windows (v1.1)`](https://github.com/ATOMIC09/DerDoS/releases/download/v1.1/DerDos-1.1-windows-x86_64.exe)
+- [`Download for Windows (v1.2)`](https://github.com/ATOMIC09/DerDoS/releases/download/v1.2/DerDos-1.2-windows-x86_64.exe)
 - [`Download for Mac (Intel) (v1.1)`](https://github.com/ATOMIC09/DerDoS/releases/download/v1.1/DerDos-1.1-mac-x86_64.dmg)
 - [`Download for Mac (Apple Silicon) (v1.1)`](https://github.com/ATOMIC09/DerDoS/releases/download/v1.1/DerDos-1.1-mac-arm64.dmg)
 
