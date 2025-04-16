@@ -1,17 +1,15 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 import socket
 import os
-import threading
-import time
 import sys
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(700, 450)  # Increased window size
-        MainWindow.setMinimumSize(QtCore.QSize(700, 500))  # Increased minimum size
-        MainWindow.setMaximumSize(QtCore.QSize(900, 700))  # Increased maximum size
+        MainWindow.resize(700, 450)
+        MainWindow.setMinimumSize(QtCore.QSize(700, 500))
+        MainWindow.setMaximumSize(QtCore.QSize(900, 700))
         MainWindow.setWindowTitle("DerDoS")
         
         # Detect system theme
