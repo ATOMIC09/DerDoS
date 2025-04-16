@@ -8,8 +8,8 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
         MainWindow.resize(700, 450)
-        MainWindow.setMinimumSize(QtCore.QSize(700, 500))
-        MainWindow.setMaximumSize(QtCore.QSize(900, 700))
+        MainWindow.setMinimumSize(QtCore.QSize(800, 600))
+        MainWindow.setMaximumSize(QtCore.QSize(1200, 1000))
         MainWindow.setWindowTitle("DerDoS")
         
         # Detect system theme
