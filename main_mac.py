@@ -12,14 +12,9 @@ class Ui_MainWindow(object):
         MainWindow.setMaximumSize(QtCore.QSize(1200, 1000))
         MainWindow.setWindowTitle("DerDoS")
         
-        # Detect system theme for Windows
-        self.is_dark_mode = self.detect_dark_mode()
-        
-        # Use platform-specific styling
-        if sys.platform == "darwin":  # macOS
+        # Use native macOS style
+        if sys.platform == "darwin":  # Check if running on macOS
             QtWidgets.QApplication.setStyle(QtWidgets.QStyleFactory.create("macOS"))
-        else:  # Windows and other platforms
-            self.setup_stylesheet(MainWindow)
         
         # Setup window icon
         icon = QtGui.QIcon()
@@ -33,6 +28,7 @@ class Ui_MainWindow(object):
         # Main layout
         self.main_layout = QtWidgets.QVBoxLayout(self.centralwidget)
         self.main_layout.setContentsMargins(20, 20, 20, 20)
+        self.main_layout.setSpacing(15)
         
         # Content section with input form and output log
         self.content_layout = QtWidgets.QHBoxLayout()
@@ -41,7 +37,7 @@ class Ui_MainWindow(object):
         self.control_panel = QtWidgets.QWidget()
         self.control_layout = QtWidgets.QVBoxLayout(self.control_panel)
         self.control_layout.setContentsMargins(0, 0, 0, 0)
-        self.control_layout.setSpacing(30)
+        self.control_layout.setSpacing(15)
         
         # IP Address input
         self.ip_group = QtWidgets.QGroupBox("Target IP Address")
@@ -79,7 +75,6 @@ class Ui_MainWindow(object):
         # Stats display
         self.stats_group = QtWidgets.QGroupBox("Attack Statistics")
         self.stats_layout = QtWidgets.QFormLayout(self.stats_group)
-        self.stats_layout.setVerticalSpacing(8)
         self.packets_sent_label = QtWidgets.QLabel("Packets Sent: 0")
         self.data_sent_label = QtWidgets.QLabel("Data Sent: 0 MB")
         self.stats_layout.addRow(self.packets_sent_label)
@@ -88,7 +83,6 @@ class Ui_MainWindow(object):
         
         # Buttons
         self.buttons_layout = QtWidgets.QHBoxLayout()
-        self.buttons_layout.setSpacing(15)
         self.attack = QtWidgets.QPushButton("Attack")
         self.attack.setObjectName("attack")
         self.attack.setMinimumHeight(70)
@@ -277,87 +271,6 @@ class Ui_MainWindow(object):
             self.packet_size.setEnabled(True)
             self.attack.setEnabled(True)
             self.stop.setEnabled(False)
-
-    def detect_dark_mode(self):
-        """Detect if the system is using dark mode (Windows only)"""
-        if sys.platform == "win32":
-            import ctypes
-            try:
-                # Check system theme
-                key = r"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"
-                with ctypes.windll.advapi32.RegOpenKeyExW(ctypes.windll.advapi32.HKEY_CURRENT_USER, key, 0, 0x20019) as hkey:
-                    value = ctypes.windll.advapi32.RegQueryValueExW(hkey, "AppsUseLightTheme", None, None, None)
-                    return value == 0
-            except Exception:
-                return False
-        return False
-
-    def setup_stylesheet(self, MainWindow):
-        """Apply modern styling for Windows"""
-        if self.is_dark_mode:
-            MainWindow.setStyleSheet("""
-                QMainWindow {
-                    background-color: #2d2d2d;
-                    color: #ffffff;
-                }
-                QPushButton {
-                    background-color: #3c3c3c;
-                    color: #ffffff;
-                    border: 1px solid #5a5a5a;
-                    border-radius: 5px;
-                }
-                QPushButton:hover {
-                    background-color: #4c4c4c;
-                }
-                QLineEdit {
-                    background-color: #3c3c3c;
-                    color: #ffffff;
-                    border: 1px solid #5a5a5a;
-                    border-radius: 5px;
-                }
-                QGroupBox {
-                    border: 1px solid #5a5a5a;
-                    border-radius: 5px;
-                    margin-top: 10px;
-                }
-                QGroupBox::title {
-                    subcontrol-origin: margin;
-                    subcontrol-position: top left;
-                    padding: 0 3px;
-                }
-            """)
-        else:
-            MainWindow.setStyleSheet("""
-                QMainWindow {
-                    background-color: #ffffff;
-                    color: #000000;
-                }
-                QPushButton {
-                    background-color: #f0f0f0;
-                    color: #000000;
-                    border: 1px solid #dcdcdc;
-                    border-radius: 5px;
-                }
-                QPushButton:hover {
-                    background-color: #e0e0e0;
-                }
-                QLineEdit {
-                    background-color: #f0f0f0;
-                    color: #000000;
-                    border: 1px solid #dcdcdc;
-                    border-radius: 5px;
-                }
-                QGroupBox {
-                    border: 1px solid #dcdcdc;
-                    border-radius: 5px;
-                    margin-top: 10px;
-                }
-                QGroupBox::title {
-                    subcontrol-origin: margin;
-                    subcontrol-position: top left;
-                    padding: 0 3px;
-                }
-            """)
 
 class ProgressThread(QtCore.QThread):
     """Thread for animating progress bar"""
