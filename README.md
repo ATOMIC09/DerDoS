@@ -1,11 +1,10 @@
 <h1 align="left">Welcome to DerDoS's Source Code 👀</h1>
+
 <p>
-  <img alt="Version" src="https://img.shields.io/badge/version-1.2-blue.svg?cacheSeconds=2592000" />
-  <a href="#" target="_blank">
-    <img alt="License: GPLv3" src="https://img.shields.io/badge/License-GPLv3-yellow.svg" />
-  </a>
-  <a href="https://github.com/ATOMIC09/DerDoS/tags">
-      <img alt="Download" src="https://img.shields.io/github/downloads/ATOMIC09/DerDoS/total" />
+  <img alt="GitHub Release" src="https://img.shields.io/github/v/release/ATOMIC09/DerDos">
+  <img alt="GitHub License" src="https://img.shields.io/github/license/ATOMIC09/DerDos">
+  <a href="https://github.com/ATOMIC09/DerDos/tags">
+      <img alt="Download" src="https://img.shields.io/github/downloads/ATOMIC09/DerDos/total" />
   </a>
 </p>
 
